@@ -11,10 +11,14 @@ class App extends Component {
   render() {
     
     return (
-      <div>
+      <div className="App">
         <NavBar />
+        <div className="container">
+    <div className="row">
         <CountriesList />
-        
+        <Route path="/:alpha3Code" component={CountryDetails}/>
+        </div>
+      </div>
       </div>
     )
   }

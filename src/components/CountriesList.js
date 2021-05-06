@@ -37,8 +37,9 @@ class CountriesList extends Component {
               )
             })
           }
-          <Route path="/:alpha3Code" component={CountryDetails}/>
+          
         </div>
+       
             </div>
         )
     }

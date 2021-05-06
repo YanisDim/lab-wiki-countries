@@ -7,16 +7,17 @@ class CountryDetails extends Component {
     }
 
     getData(){
-        axios.get(`https://restcountries.eu/rest/v2/all/`)
+        let countryid = this.props.match.params.alpha3Code
+        axios.get(`https://restcountries.eu/rest/v2/alpha/${countryid}`)
         .then((response) => {
             const {name, alpha3code} = response.data
             let detail={
                 name : response.data.name,
-                alpha3code: response.data.alpha3code
+                id: this.props.match.params.alpha3Code
             }
             this.setState({countryDetail: detail})
         }).catch((err) => {
-            
+            console.log('error')
         });
     }
 
@@ -25,11 +26,27 @@ class CountryDetails extends Component {
         
     }
 
+    componentDidUpdate(){
+        let stateId = this.state.countryDetail.alpha3Code
+        let propsId = this.props.match.params.alpha3Code
+        if(stateId !== propsId){
+                this.getData()
+        }
+    }
 
 
 
   render() {
-    return
+      const {countryDetail} = this.state
+      if(!countryDetail){
+          return <h1>...Loading</h1>
+      }
+    return(
+        <div>
+            <h1>Country Detail</h1>
+            <h4>Name: {countryDetail.name}</h4>
+        </div>
+    )
   }
 }
 
